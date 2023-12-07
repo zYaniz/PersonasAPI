@@ -4,6 +4,15 @@ using Microsoft.EntityFrameworkCore;
 using PersonasAPI.Contexto;
 using PersonasAPI.Entities;
 
+
+// Yani Joel Solano Flores
+// Harold Steven Monge Cascante
+// Melvin Fernando Mora Delgado 
+// Asignacion #3 API personas
+
+
+#region controladores Persona 
+
 namespace PersonasAPI.Controllers
 {
     [Route("personas")]
@@ -16,17 +25,19 @@ namespace PersonasAPI.Controllers
             _dbContext = dbContext;
         }
 
-        // Obtener todos los registros de todas las personas
+        #region Obtener todos los registros de todas las personas
         [HttpGet]
         [Route("obtenerTodasPersonas")]
         public ActionResult<IEnumerable<PersonaModel>> ObtenerTodasLasPersonas()
         {
+            // referencia a ObtenerTodasLasPersonas en ContextoBD.cs
             var personas = _dbContext.ObtenerTodasLasPersonas();
             return Ok(personas);
         }
 
+        #endregion
 
-        //Obtiene la persona mediante el ID
+        #region   Obtiene la persona mediante el ID
         [HttpGet("{id}")]
         [Route("obtenerPersonaPorID")]
 
@@ -43,7 +54,10 @@ namespace PersonasAPI.Controllers
             return Ok(persona);
         }
 
-        //Agrega la persona, se pide el nombre, apellido y cèdula
+        #endregion
+
+
+        #region  Agrega la persona, se pide el nombre, apellido y cèdula
         [HttpPost]
         [Route("agregarPersona")]
         public IActionResult AgregarPersona([FromBody] PersonaModel persona)
@@ -53,7 +67,11 @@ namespace PersonasAPI.Controllers
             return CreatedAtAction(nameof(ObtenerPersonaPorId), new { id = persona.Id }, persona);
         }
 
-        //Actualiza los datos de la persona por ID
+
+        #endregion
+
+
+        #region Actualiza los datos de la persona por ID
         [HttpPut("{id}")]
         [Route("actualizarPersona")]
 
@@ -63,8 +81,9 @@ namespace PersonasAPI.Controllers
 
             return NoContent();
         }
+        #endregion
 
-        //Elimina a la persona por ID
+        #region Elimina a la persona por ID
         [HttpDelete("{id}")]
         [Route("eliminarPersona")]
         public IActionResult EliminarPersona(int id)
@@ -72,5 +91,7 @@ namespace PersonasAPI.Controllers
             _dbContext.EliminarInformacionPorCedula(id.ToString());
             return NoContent();
         }
+        #endregion
     }
 }
+#endregion

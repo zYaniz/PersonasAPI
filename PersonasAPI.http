@@ -1,6 +1,14 @@
 @PersonasAPI_HostAddress = http://localhost:5124
 
+
+// Yani Joel Solano Flores
+// Harold Steven Monge Cascante
+// Melvin Fernando Mora Delgado 
+// Asignacion #3 API personas
+
+
 GET {{PersonasAPI_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+

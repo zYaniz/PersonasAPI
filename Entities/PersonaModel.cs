@@ -1,4 +1,11 @@
-﻿namespace PersonasAPI.Entities
+﻿// Yani Joel Solano Flores
+// Harold Steven Monge Cascante
+// Melvin Fernando Mora Delgado 
+// Asignacion #3 API personas
+
+
+// clase personas. Atributos.
+namespace PersonasAPI.Entities
 {
     public class PersonaModel
     {

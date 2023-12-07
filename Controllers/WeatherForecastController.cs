@@ -1,5 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 
+// Yani Joel Solano Flores
+// Harold Steven Monge Cascante
+// Melvin Fernando Mora Delgado 
+// Asignacion #3 API personas
+
 namespace PersonasAPI.Controllers
 {
     [ApiController]

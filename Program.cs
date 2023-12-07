@@ -1,3 +1,12 @@
+// Yani Joel Solano Flores
+// Harold Steven Monge Cascante
+// Melvin Fernando Mora Delgado 
+// Asignacion #3 API personas
+
+
+
+
+#region 
 using Microsoft.EntityFrameworkCore;
 using PersonasAPI.Contexto;
 
@@ -29,3 +38,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+#endregion
