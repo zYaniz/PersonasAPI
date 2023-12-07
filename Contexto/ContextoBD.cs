@@ -12,5 +12,6 @@ namespace PersonasAPI.Contexto
         {
             return Personas.FromSqlRaw("EXEC ObtenerInformacionPorCedula @Cedula", new SqlParameter("@Cedula",cedula));
         }
+
     }
 }
