@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PersonasAPI.Contexto;
 using PersonasAPI.Entities;
 
@@ -14,22 +15,62 @@ namespace PersonasAPI.Controllers
         {
             _dbContext = dbContext;
         }
+
+        // Obtener todos los registros de todas las personas
         [HttpGet]
-        [Route("ObtenerNombrePorCedula")]
-        public ActionResult<IEnumerable<PersonaModel>> ConsultaPersonaPorCedula([FromQuery] string cedula)
+        [Route("obtenerTodasPersonas")]
+        public ActionResult<IEnumerable<PersonaModel>> ObtenerTodasLasPersonas()
         {
-            var personas = _dbContext.ConsultaPersonas(cedula);
+            var personas = _dbContext.ObtenerTodasLasPersonas();
             return Ok(personas);
         }
 
-        [HttpGet]
-        [Route("obtenerNombrePersona")]
-        public dynamic obtenerNombrePorCedula()
+
+        //Obtiene la persona mediante el ID
+        [HttpGet("{id}")]
+        [Route("obtenerPersonaPorID")]
+
+        public ActionResult<PersonaModel> ObtenerPersonaPorId(int id)
         {
-            return new
+            // Si no se encuentra, aparece que no se encontró, si se encuentra, aparece la persona
+            var persona = _dbContext.ObtenerPersonaPorId(id);
+
+            if (persona == null)
             {
-                nombre = "Jafeth AM"
-            };
+                return NotFound();
+            }
+
+            return Ok(persona);
+        }
+
+        //Agrega la persona, se pide el nombre, apellido y cèdula
+        [HttpPost]
+        [Route("agregarPersona")]
+        public IActionResult AgregarPersona([FromBody] PersonaModel persona)
+        {
+            _dbContext.InsertarPersona(persona.Nombre, persona.Apellido, persona.Cedula);
+
+            return CreatedAtAction(nameof(ObtenerPersonaPorId), new { id = persona.Id }, persona);
+        }
+
+        //Actualiza los datos de la persona por ID
+        [HttpPut("{id}")]
+        [Route("actualizarPersona")]
+
+        public IActionResult ActualizarPersona(int id, [FromBody] PersonaModel personaActualizada)
+        {
+            _dbContext.ActualizarInformacionPersona(personaActualizada.Cedula, personaActualizada.Nombre, personaActualizada.Apellido, personaActualizada.Cedula);
+
+            return NoContent();
+        }
+
+        //Elimina a la persona por ID
+        [HttpDelete("{id}")]
+        [Route("eliminarPersona")]
+        public IActionResult EliminarPersona(int id)
+        {
+            _dbContext.EliminarInformacionPorCedula(id.ToString());
+            return NoContent();
         }
     }
 }
